@@ -6,10 +6,11 @@ const admin = require('./modules/admin')
 const goodshopController = require('../controllers/pages/goodshop-controller')
 const userController = require('../controllers/pages/user-controller')
 
+const { authenticated } = require('../middleware/auth') // 區分user 與 admin
 const { generalErrorHandler } = require('../middleware/error-handler')
 
 // admin後台
-router.use('/admin/goodshop', admin)
+router.use('/admin', admin)
 
 // signUp註冊
 router.get('/signup', userController.signUpPage)
@@ -23,7 +24,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
 router.get('/logout', userController.logOut)
 
 // goodshop前台
-router.get('/goodshop', goodshopController.getGoodshop)
+router.get('/goodshop', authenticated, goodshopController.getGoodshop)
 
 router.use('/', (req, res) => res.redirect('/goodshop'))
 
