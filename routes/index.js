@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-  res.send('Hello Worls!')
-})
+const goodshopController = require('../controllers/pages/goodshop-controller')
+
+router.get('/goodshop', goodshopController.getGoodshop)
+
+router.use('/', (req, res) => res.redirect('/goodshop'))
 
 module.exports = router
