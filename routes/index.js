@@ -3,6 +3,8 @@ const router = express.Router()
 
 const goodshopController = require('../controllers/pages/goodshop-controller')
 const userController = require('../controllers/pages/user-controller')
+
+const { generalErrorHandler } = require('../middleware/error-handler')
 const admin = require('./modules/admin')
 
 // admin後台
@@ -16,5 +18,6 @@ router.post('/signup', userController.signUp)
 router.get('/goodshop', goodshopController.getGoodshop)
 
 router.use('/', (req, res) => res.redirect('/goodshop'))
+router.use('/', generalErrorHandler)
 
 module.exports = router
