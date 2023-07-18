@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 // Include packages and define server related variables
 const path = require('path')
 const express = require('express')
