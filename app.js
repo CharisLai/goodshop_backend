@@ -1,4 +1,5 @@
 // Include packages and define server related variables
+const path = require('path')
 const express = require('express')
 const exphbs = require('express-handlebars')
 const flash = require('connect-flash')
@@ -25,6 +26,7 @@ app.use(passport.initialize()) // passport init
 app.use(passport.session()) // session
 app.use(flash())
 app.use(methodOverride('_method')) // method-override
+app.use('/upload', express.static(path.join(__dirname, 'upload'))) // 上傳圖片
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages') // 設定 success_msg 訊息
   res.locals.error_messages = req.flash('error_messages') // 設定 warning_msg 訊息

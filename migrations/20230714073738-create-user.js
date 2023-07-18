@@ -16,7 +16,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      passwords: {
+      password: {
         allowNull: false,
         type: Sequelize.STRING
       },

@@ -1,6 +1,7 @@
 const { Goods } = require('../../models')
-const adminController = {
+const { localFileHandler } = require('../../helpers/file-helpers')
 
+const adminController = {
     // 瀏覽後台商品列表
     getGoodshop: (req, res, next) => {
         Goods.findAll({
@@ -16,20 +17,23 @@ const adminController = {
     },
     postGoods: (req, res, next) => {
         const { name, price, quantity, description } = req.body
-        console.log('Here')
         if (!name) throw new Error('Product name is required!')
-        Goods.create({
-            name,
-            price,
-            quantity,
-            description
-        })
+        const { file } = req
+        localFileHandler(file)
+            .then(filePath => Goods.create({
+                name,
+                price,
+                quantity,
+                description,
+                image: filePath || null
+            }))
             .then(() => {
                 req.flash('success_messages', 'Product was successfully created')
                 res.redirect('/admin/goodshop')
             })
             .catch(err => next(err))
     },
+    // 瀏覽特定商品
     getGoods: (req, res, next) => {
         return Goods.findByPk(req.params.id, {
             raw: true
@@ -40,6 +44,7 @@ const adminController = {
             })
             .catch(err => next(err))
     },
+    // 編輯特定商品GET
     editGoods: (req, res, next) => {
         return Goods.findByPk(req.params.id, {
             raw: true
@@ -50,17 +55,23 @@ const adminController = {
             })
             .catch(err => next(err))
     },
+    // 編輯特定商品PUT
     putGoods: (req, res, next) => {
         const { name, price, quantity, description } = req.body
         if (!name) throw new Error('Product name is required!')
-        Goods.findByPk(req.params.id)
-            .then(goods => {
+        const { file } = req
+        Promise.all([
+            Goods.findByPk(req.params.id),
+            localFileHandler(file)
+        ])
+            .then(([goods, filePath]) => {
                 if (!goods) throw new Error("Product didn't exist!")
                 return goods.update({
                     name,
                     price,
                     quantity,
-                    description
+                    description,
+                    image: filePath || Goods.image
                 })
             })
             .then(() => {
@@ -69,6 +80,7 @@ const adminController = {
             })
             .catch(err => next(err))
     },
+    // 刪除特定商品
     deleteGoods: (req, res, next) => {
         return Goods.findByPk(req.params.id)
             .then(goods => {

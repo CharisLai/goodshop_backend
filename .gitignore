@@ -11,6 +11,8 @@ Desktop.ini
 
 # npm
 node_modules
+temp/
+upload/
 *.log
 *.gz
 # dotenv
