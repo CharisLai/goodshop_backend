@@ -8,7 +8,6 @@ const userController = {
         res.render('signup')
     },
     signUp: (req, res, next) => {
-        console.log('password:', req.body.password)
         // 輸入兩次密碼不相符，建立一個Error物件並拋出
         if (req.body.password !== req.body.passwordCheck) throw new Error('Passwords do not match!')
         // 確認資料裡 沒有重複的email，所有建立Error並拋出提示使用者
