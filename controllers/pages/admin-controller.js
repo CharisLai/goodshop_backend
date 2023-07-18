@@ -6,6 +6,25 @@ const adminController = {
         })
             .then(goods => res.render('admin/goodshop', { goods }))
             .catch(err => next(err))
+    },
+    createGoodshop: (req, res) => {
+        return res.render('admin/create-goodshop')
+    },
+    postGoodshop: (req, res, next) => {
+        const { name, price, quantity, description } = req.body
+
+        if (!name) throw new Error('Product name is required!')
+        Goods.create({
+            name,
+            price,
+            quantity,
+            description
+        })
+            .then(() => {
+                req.flash('success_messages', 'Product was successfully created')
+                res.redirect('/admin/goodshop')
+            })
+            .catch(err => next(err))
     }
 }
 module.exports = adminController

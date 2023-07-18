@@ -6,11 +6,11 @@ const admin = require('./modules/admin')
 const goodshopController = require('../controllers/pages/goodshop-controller')
 const userController = require('../controllers/pages/user-controller')
 
-const { authenticated } = require('../middleware/auth') // 區分user 與 admin
+const { authenticated, authenticatedAdmin } = require('../middleware/auth') // 區分user 與 admin
 const { generalErrorHandler } = require('../middleware/error-handler')
 
 // admin後台
-router.use('/admin', admin)
+router.use('/admin', authenticatedAdmin, admin)
 
 // signUp註冊
 router.get('/signup', userController.signUpPage)
