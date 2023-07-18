@@ -2,6 +2,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const flash = require('connect-flash')
+const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('./config/passport')
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
@@ -23,7 +24,7 @@ app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: fals
 app.use(passport.initialize()) // passport init
 app.use(passport.session()) // session
 app.use(flash())
-
+app.use(methodOverride('_method')) // method-override
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages') // 設定 success_msg 訊息
   res.locals.error_messages = req.flash('error_messages') // 設定 warning_msg 訊息
