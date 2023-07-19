@@ -89,6 +89,10 @@ const adminController = {
             })
             .then(() => res.redirect('/admin/goodshop'))
             .catch(err => next(err))
+    },
+    onShelves: (req, res, next) => {
+        return Goods
     }
+
 }
 module.exports = adminController

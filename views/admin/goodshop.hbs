@@ -9,7 +9,8 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col"></th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,9 @@
         <tr>
             <th scope="row">{{this.id}}</th>
             <td>{{this.name}}</td>
+            <td>{{this.price}}</td>
+            <td>{{quantity}}</td>
+
             <td>
                 <button type="button" class="btn btn-link">
                     <a class="btn btn-link link-primary" href="/admin/goods/{{this.id}}">
@@ -28,8 +32,14 @@
                         Edit
                     </a>
                 </button>
+                <button type="button" class="btn btn-link">
+                    <a class="btn btn-link link-primary" href="/admin/goods/{{this.id}}">
+                        onShelves
+                    </a>
+                </button>
                 <form action="/admin/goods/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-                    <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
+                    <button type="submit" class="btn btn-link link-danger"
+                        onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
                 </form>
             </td>
         </tr>
