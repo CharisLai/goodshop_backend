@@ -2,6 +2,29 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark px-4">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Goodshop</a>
+
+            <!--Search -->
+            <form class="row row-cols-lg-auto g-5 align-items-center mb-1" id="search-form">
+                <div class="col-6">
+                    <label class="visually-hidden" for="search-input">
+                        Search Keyword
+                    </label>
+                    <input type="text" class="form-control" id="search-input" placeholder="Keyword..." />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary" id="search-submit-button">
+                        Search
+                    </button>
+                </div>
+            </form>
+
+            <!--Shopping cart -->
+            <a href=""><button><img src="" alt="shopping cart"></button></a>
+
+            <!--Log in -->
+            <a href="/login"><button class="btn btn-primary">Log in</button></a>
+
+
             {{#if user}}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

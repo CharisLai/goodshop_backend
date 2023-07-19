@@ -1,14 +1,22 @@
+<!--filter -->
+<select style="display: flex; justify-content: flex-end; width: 40%;" class=" form-select" id="filter" name="filter"
+    aria-label="filter">
+    <option selected>All</option>
+    <option value="price-desc" {{#ifCond sort 'price-desc' }} selected{{/ifCond}}>Price: high > low</option>
+    <option value="price-asc" {{#ifCond sort 'price-asc' }} selected{{/ifCond}}>Price: low > high </option>
+</select>
+
 <div class="row mt-3">
     {{#each goods}}
     <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
-            <a href="/goods/{{this.id}}">
+            <a href="/product/{{this.id}}">
                 <img class="card-img-top img-fluid" src="{{this.image}}" alt="Card image cap" width="286px"
                     height="180px" style="transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
             </a>
             <div class="card-body">
                 <p class="card-text">
-                    <a href="/goods/{{this.id}}">
+                    <a href="/product/{{this.id}}">
                         {{this.name}}
                     </a>
                 </p>
