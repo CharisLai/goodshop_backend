@@ -1,15 +1,9 @@
 const { Goods } = require('../../models')
+const goodshopServices = require('../../services/goodshop-services')
 
 const goodshopController = {
-    getGoodshop: (req, res) => {
-        return Goods.findAll({
-            raw: true
-        }).then(goods => {
-            const data = goods.map(g => ({
-                ...g
-            }))
-            res.render('goodshop', { goods: data })
-        })
+    getGoodshop: (req, res, next) => {
+        goodshopServices.getGoodshop(req, (err, data) => err ? next(err) : res.render('goodshop', data))
     },
     getProduct: (req, res, next) => {
         // 從goods table中取得資料
