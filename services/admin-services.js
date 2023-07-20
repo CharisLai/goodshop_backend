@@ -1,3 +1,4 @@
+const { imgurFileHandler } = require('../helpers/file-helpers')
 const { Goods } = require('../models')
 
 const adminServices = {
@@ -13,23 +14,21 @@ const adminServices = {
     // createGoods: (req, cb) => {
     //     return cb
     // },
-    // postGoods: (req, cb) => {
-    //     const { name, price, quantity, description } = req.body
-    //     if (!name) throw new Error('Product name is required!')
-    //     const { file } = req
-    //         .then(filePath => Goods.create({
-    //             name,
-    //             price,
-    //             quantity,
-    //             description,
-    //             image: filePath || null
-    //         }))
-    //         .then(() => {
-    //             req.flash('success_messages', 'Product was successfully created')
-    //             return cb
-    //         })
-    //         .catch(err => cb(err))
-    // },
+    postGoods: (req, cb) => {
+        const { name, price, quantity, description } = req.body
+        if (!name) throw new Error('Product name is required!')
+        const { file } = req
+        imgurFileHandler(file)
+            .then(filePath => Goods.create({
+                name,
+                price,
+                quantity,
+                description,
+                image: filePath || null
+            }))
+            .then(newGoods => cb(null, { goods: newGoods }))
+            .catch(err => cb(err))
+    },
     // // 瀏覽特定商品
     // getGoods: (req, cb) => {
     //     return Goods.findByPk(req.params.id, {

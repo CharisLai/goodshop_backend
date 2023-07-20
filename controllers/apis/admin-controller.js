@@ -13,22 +13,7 @@ const adminController = {
         return res.render('admin/create-goods')
     },
     postGoods: (req, res, next) => {
-        const { name, price, quantity, description } = req.body
-        if (!name) throw new Error('Product name is required!')
-        const { file } = req
-        imgurFileHandler(file)
-            .then(filePath => Goods.create({
-                name,
-                price,
-                quantity,
-                description,
-                image: filePath || null
-            }))
-            .then(() => {
-                req.flash('success_messages', 'Product was successfully created')
-                res.json()
-            })
-            .catch(err => next(err))
+        adminServices.postGoods(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
     },
     // 瀏覽特定商品
     getGoods: (req, res, next) => {

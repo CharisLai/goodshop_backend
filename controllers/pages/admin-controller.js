@@ -13,22 +13,12 @@ const adminController = {
         return res.render('admin/create-goods')
     },
     postGoods: (req, res, next) => {
-        const { name, price, quantity, description } = req.body
-        if (!name) throw new Error('Product name is required!')
-        const { file } = req
-        imgurFileHandler(file)
-            .then(filePath => Goods.create({
-                name,
-                price,
-                quantity,
-                description,
-                image: filePath || null
-            }))
-            .then(() => {
-                req.flash('success_messages', 'Product was successfully created')
-                res.redirect('/admin/goodshop')
-            })
-            .catch(err => next(err))
+        adminServices.postGoods(req, (err, data) => {
+            if (err) return next(err)
+            req.flash('success_messages', 'Product was successfully created')
+            req.session.createGoods = data
+            res.redirect('/admin/goodshop')
+        })
     },
     // 瀏覽特定商品
     getGoods: (req, res, next) => {
