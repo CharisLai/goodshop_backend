@@ -79,13 +79,11 @@ const adminController = {
     },
     // 刪除特定商品
     deleteGoods: (req, res, next) => {
-        return Goods.findByPk(req.params.id)
-            .then(goods => {
-                if (!goods) throw new Error("Product didn't exist!")
-                return goods.destroy()
-            })
-            .then(() => res.redirect('/admin/goodshop'))
-            .catch(err => next(err))
+        adminServices.deleteGoods(req, (err, data) => {
+            if (err) return next(err)
+            req.session.deleteGoods = data
+            return res.redirect('/admin/goodshop')
+        })
     },
     onShelves: (req, res, next) => {
         return Goods

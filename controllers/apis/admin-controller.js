@@ -5,7 +5,7 @@ const adminServices = require('../../services/admin-services')
 const adminController = {
     // 瀏覽後台商品列表
     getGoodshop: (req, res, next) => {
-        adminServices.getGoodshop(req, (err, data) => err ? next(err) : res.json(data))
+        adminServices.getGoodshop(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
     },
     // 新增商品
     createGoods: (req, res) => {
@@ -79,17 +79,7 @@ const adminController = {
     },
     // 刪除特定商品
     deleteGoods: (req, res, next) => {
-        return Goods.findByPk(req.params.id)
-            .then(goods => {
-                if (!goods) throw new Error("Product didn't exist!")
-                return goods.destroy()
-            })
-            .then(() => res.json())
-            .catch(err => next(err))
-    },
-    onShelves: (req, res, next) => {
-        return Goods
+        adminServices.deleteGoods(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
     }
-
 }
 module.exports = adminController

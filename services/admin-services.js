@@ -8,7 +8,7 @@ const adminServices = {
         })
             .then(goods => cb(null, { goods }))
             .catch(err => cb(err))
-    }
+    },
     // // 新增商品
     // createGoods: (req, cb) => {
     //     return cb
@@ -77,16 +77,20 @@ const adminServices = {
     //         })
     //         .catch(err => cb(err))
     // },
-    // // 刪除特定商品
-    // deleteGoods: (req, cb) => {
-    //     return Goods.findByPk(req.params.id)
-    //         .then(goods => {
-    //             if (!goods) throw new Error("Product didn't exist!")
-    //             return goods.destroy()
-    //         })
-    //         .then(() => res.json())
-    //         .catch(err => cb(err))
-    // },
+    // 刪除特定商品
+    deleteGoods: (req, cb) => {
+        Goods.findByPk(req.params.id)
+            .then(goods => {
+                if (!goods) {
+                    const err = new Error("Product didn't exist!")
+                    err.status = 404
+                    throw err
+                }
+                return goods.destroy()
+            })
+            .then(deleteGoods => cb(null, { goods: deleteGoods }))
+            .catch(err => cb(err))
+    }
     // onShelves: (req, cb) => {
     //     return Goods
     // }
