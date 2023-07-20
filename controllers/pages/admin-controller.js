@@ -1,14 +1,11 @@
+const adminServices = require('../../services/admin-services')
 const { Goods } = require('../../models')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
 
 const adminController = {
     // 瀏覽後台商品列表
     getGoodshop: (req, res, next) => {
-        Goods.findAll({
-            raw: true
-        })
-            .then(goods => res.render('admin/goodshop', { goods }))
-            .catch(err => next(err))
+        adminServices.getGoodshop(req, (err, data) => err ? next(err) : res.render('admin/goodshop', data))
     },
     // 新增商品
     createGoods: (req, res) => {
