@@ -1,72 +1,72 @@
 const { imgurFileHandler } = require('../helpers/file-helpers')
-const { Goods } = require('../models')
+const { Product } = require('../models')
 
 const adminServices = {
     // 瀏覽後台商品列表
     getGoodshop: (req, cb) => {
-        Goods.findAll({
+        Product.findAll({
             raw: true
         })
-            .then(goods => cb(null, { goods }))
+            .then(product => cb(null, { product }))
             .catch(err => cb(err))
     },
     // // 新增商品
-    // createGoods: (req, cb) => {
+    // createproduct: (req, cb) => {
     //     return cb
     // },
-    postGoods: (req, cb) => {
+    postProduct: (req, cb) => {
         const { name, price, quantity, description } = req.body
         if (!name) throw new Error('Product name is required!')
         const { file } = req
         imgurFileHandler(file)
-            .then(filePath => Goods.create({
+            .then(filePath => Product.create({
                 name,
                 price,
                 quantity,
                 description,
                 image: filePath || null
             }))
-            .then(newGoods => cb(null, { goods: newGoods }))
+            .then(newProduct => cb(null, { product: newProduct }))
             .catch(err => cb(err))
     },
     // 瀏覽特定商品
-    getGoods: (req, cb) => {
-        return Goods.findByPk(req.params.id, {
+    getProduct: (req, cb) => {
+        return Product.findByPk(req.params.id, {
             raw: true
         })
-            .then(goods => {
-                if (!goods) throw new Error("Product didn't exist!")
-                return cb(null, { goods })
+            .then(product => {
+                if (!product) throw new Error("Product didn't exist!")
+                return cb(null, { product })
             })
             .catch(err => cb(err))
     },
     // 編輯特定商品GET
-    editGoods: (req, cb) => {
-        return Goods.findByPk(req.params.id, {
+    editProduct: (req, cb) => {
+        return Product.findByPk(req.params.id, {
             raw: true
         })
-            .then(goods => {
-                if (!goods) throw new Error("Product didn't exist!")
-                return cb(null, { goods })
+            .then(product => {
+                if (!product) throw new Error("Product didn't exist!")
+                return cb(null, { product })
             })
             .catch(err => cb(err))
     },
     // 編輯特定商品PUT
-    putGoods: (req, cb) => {
+    putProduct: (req, cb) => {
         const { name, price, quantity, description } = req.body
         if (!name) throw new Error('Product name is required!')
         const { file } = req
         Promise.all([
-            Goods.findByPk(req.params.id)
+            Product.findByPk(req.params.id)
         ])
-            .then(([goods, filePath]) => {
-                if (!goods) throw new Error("Product didn't exist!")
-                return goods.update({
+            .then(([product, filePath]) => {
+                if (!product) throw new Error("Product didn't exist!")
+                return product.update({
                     name,
                     price,
                     quantity,
                     description,
-                    image: filePath || Goods.image
+                    image: filePath || Product.image
                 })
             })
             .then(() => {
@@ -76,21 +76,21 @@ const adminServices = {
             .catch(err => cb(err))
     },
     // 刪除特定商品
-    deleteGoods: (req, cb) => {
-        Goods.findByPk(req.params.id)
-            .then(goods => {
-                if (!goods) {
+    deleteProduct: (req, cb) => {
+        Product.findByPk(req.params.id)
+            .then(product => {
+                if (!product) {
                     const err = new Error("Product didn't exist!")
                     err.status = 404
                     throw err
                 }
-                return goods.destroy()
+                return product.destroy()
             })
-            .then(deleteGoods => cb(null, { goods: deleteGoods }))
+            .then(deleteProduct => cb(null, { product: deleteProduct }))
             .catch(err => cb(err))
     },
     onShelves: (req, cb) => {
-        return Goods
+        return Product
     }
 
 }

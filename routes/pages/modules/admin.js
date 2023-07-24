@@ -5,17 +5,17 @@ const adminController = require('../../../controllers/pages/admin-controller')
 const upload = require('../../../middleware/multer')
 
 // 新增商品GET
-router.get('/goods/create', adminController.createGoods)
+router.get('/product/create', adminController.createProduct)
 // 編輯特定商品GET
-router.get('/goods/:id/edit', adminController.editGoods)
+router.get('/product/:id/edit', adminController.editProduct)
 // 瀏覽特定商品
-router.get('/goods/:id', adminController.getGoods)
+router.get('/product/:id', adminController.getProduct)
 // 編輯特定商品PUT
-router.put('/goods/:id', upload.single('image'), adminController.putGoods)
+router.put('/product/:id', upload.single('image'), adminController.putProduct)
 // 刪除特定商品
-router.delete('/goods/:id', adminController.deleteGoods)
+router.delete('/product/:id', adminController.deleteProduct)
 // 新增商品POST
-router.post('/goods', upload.single('image'), adminController.postGoods)
+router.post('/product', upload.single('image'), adminController.postProduct)
 // 瀏覽admin後台列表
 router.get('/goodshop', adminController.getGoodshop)
 

@@ -1,4 +1,4 @@
-const { Goods } = require('../../models')
+const { Product } = require('../../models')
 const goodshopServices = require('../../services/goodshop-services')
 
 const goodshopController = {
@@ -6,8 +6,8 @@ const goodshopController = {
         goodshopServices.getGoodshop(req, (err, data) => err ? next(err) : res.render('goodshop', data))
     },
     getProduct: (req, res, next) => {
-        // 從goods table中取得資料
-        return Goods.findByPk(req.params.id, {
+        // 從product table中取得資料
+        return Product.findByPk(req.params.id, {
             raw: true
         })
             // 若沒有資料發出警訊 將資料帶入product模板

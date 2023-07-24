@@ -1,4 +1,4 @@
-const { Goods } = require('../../models')
+const { Product } = require('../../models')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
 const adminServices = require('../../services/admin-services')
 
@@ -8,52 +8,52 @@ const adminController = {
         adminServices.getGoodshop(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
     },
     // 新增商品
-    createGoods: (req, res) => {
+    createProduct: (req, res) => {
         console.log('What?')
-        return res.render('admin/create-goods')
+        return res.render('admin/create-product')
     },
-    postGoods: (req, res, next) => {
-        adminServices.postGoods(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+    postProduct: (req, res, next) => {
+        adminServices.postProduct(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
     },
     // 瀏覽特定商品
-    getGoods: (req, res, next) => {
-        return Goods.findByPk(req.params.id, {
+    getProduct: (req, res, next) => {
+        return Product.findByPk(req.params.id, {
             raw: true
         })
-            .then(goods => {
-                if (!goods) throw new Error("Product didn't exist!")
-                res.json(null, { goods })
+            .then(product => {
+                if (!product) throw new Error("Product didn't exist!")
+                res.json(null, { product })
             })
             .catch(err => next(err))
     },
     // 編輯特定商品GET
-    editGoods: (req, res, next) => {
-        return Goods.findByPk(req.params.id, {
+    editProduct: (req, res, next) => {
+        return Product.findByPk(req.params.id, {
             raw: true
         })
-            .then(goods => {
-                if (!goods) throw new Error("Product didn't exist!")
-                res.json(null, { goods })
+            .then(product => {
+                if (!product) throw new Error("Product didn't exist!")
+                res.json(null, { product })
             })
             .catch(err => next(err))
     },
     // 編輯特定商品PUT
-    putGoods: (req, res, next) => {
+    putProduct: (req, res, next) => {
         const { name, price, quantity, description } = req.body
         if (!name) throw new Error('Product name is required!')
         const { file } = req
         Promise.all([
-            Goods.findByPk(req.params.id),
+            Product.findByPk(req.params.id),
             imgurFileHandler(file)
         ])
-            .then(([goods, filePath]) => {
-                if (!goods) throw new Error("Product didn't exist!")
-                return goods.update({
+            .then(([product, filePath]) => {
+                if (!product) throw new Error("Product didn't exist!")
+                return product.update({
                     name,
                     price,
                     quantity,
                     description,
-                    image: filePath || Goods.image
+                    image: filePath || Product.image
                 })
             })
             .then(() => {
@@ -63,8 +63,8 @@ const adminController = {
             .catch(err => next(err))
     },
     // 刪除特定商品
-    deleteGoods: (req, res, next) => {
-        adminServices.deleteGoods(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
+    deleteProduct: (req, res, next) => {
+        adminServices.deleteProduct(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
     }
 }
 module.exports = adminController

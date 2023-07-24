@@ -1,20 +1,20 @@
-const { Goods } = require('../models')
+const { Products } = require('../models')
 
 const goodshopServices = {
     getGoodshop: (req, cb) => {
-        return Goods.findAll({
+        return Products.findAll({
             raw: true
-        }).then(goods => {
-            const data = goods.map(g => ({
+        }).then(product => {
+            const data = product.map(g => ({
                 ...g,
                 description: g.description.substring(0, 50)
             }))
-            return cb(null, { goods: data })
+            return cb(null, { product: data })
         })
     },
     getProduct: (req, cb) => {
-        // 從goods table中取得資料
-        return Goods.findByPk(req.params.id, {
+        // 從product table中取得資料
+        return Product.findByPk(req.params.id, {
             raw: true
         })
             // 若沒有資料發出警訊 將資料帶入product模板
