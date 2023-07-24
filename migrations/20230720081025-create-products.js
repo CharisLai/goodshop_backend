@@ -15,12 +15,12 @@ module.exports = {
         type: Sequelize.TEXT
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       image: {
         type: Sequelize.STRING
       },
-      deletedAt: {
+      deleted_at: {
         type: Sequelize.INTEGER
       },
       created_at: {

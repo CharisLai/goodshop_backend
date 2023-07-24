@@ -2,24 +2,24 @@
 const bcrypt = require('bcryptjs')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Users', [{ // 一次新增三筆資料
+    await queryInterface.bulkInsert('Users', [{
       email: 'seller001@example.com',
       password: await bcrypt.hash('titaner', 10),
-      is_admin: true,
+      role: 'seller',
       name: 'seller001',
       created_at: new Date(),
       updated_at: new Date()
     }, {
       email: 'buyer001@example.com',
       password: await bcrypt.hash('titaner', 10),
-      is_admin: false,
+      role: 'buyer',
       name: 'buyer001',
       created_at: new Date(),
       updated_at: new Date()
     }, {
-      email: 'user1@example.com',
+      email: 'admin@example.com',
       password: await bcrypt.hash('12345678', 10),
-      is_admin: false,
+      role: 'admin',
       name: 'user1',
       created_at: new Date(),
       updated_at: new Date()
