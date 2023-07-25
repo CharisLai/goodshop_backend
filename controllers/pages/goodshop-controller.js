@@ -3,6 +3,7 @@ const goodshopServices = require('../../services/goodshop-services')
 
 const goodshopController = {
     getGoodshop: (req, res, next) => {
+        console.log(req)
         goodshopServices.getGoodshop(req, (err, data) => err ? next(err) : res.render('goodshop', data))
     },
     getProduct: (req, res, next) => {

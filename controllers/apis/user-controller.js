@@ -1,4 +1,9 @@
+const db = require('../../models')
+const { User } = db
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+
+
 const userController = {
     login: (req, res, next) => {
         try {
@@ -15,6 +20,7 @@ const userController = {
         } catch (err) {
             next(err)
         }
-    }
+    },
+    //
 }
 module.exports = userController
