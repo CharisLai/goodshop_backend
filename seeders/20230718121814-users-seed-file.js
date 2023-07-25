@@ -5,21 +5,24 @@ module.exports = {
     await queryInterface.bulkInsert('Users', [{
       email: 'seller001@example.com',
       password: await bcrypt.hash('titaner', 10),
-      role: 'seller',
+      is_admin: false,
+      is_seller: true,
       name: 'seller001',
       created_at: new Date(),
       updated_at: new Date()
     }, {
       email: 'buyer001@example.com',
       password: await bcrypt.hash('titaner', 10),
-      role: 'buyer',
+      is_admin: false,
+      is_seller: false,
       name: 'buyer001',
       created_at: new Date(),
       updated_at: new Date()
     }, {
       email: 'admin@example.com',
       password: await bcrypt.hash('12345678', 10),
-      role: 'admin',
+      is_admin: true,
+      is_seller: false,
       name: 'user1',
       created_at: new Date(),
       updated_at: new Date()

@@ -18,7 +18,6 @@ router.use('/admin', authenticatedAdmin, admin)
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
-
 // 顯示購物車內容
 router.get('/cart', authenticated, cartController.getCart)
 // 新增商品到購物車

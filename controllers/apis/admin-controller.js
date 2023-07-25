@@ -9,7 +9,6 @@ const adminController = {
     },
     // 新增商品
     createProduct: (req, res) => {
-        console.log('What?')
         return res.render('admin/create-product')
     },
     postProduct: (req, res, next) => {

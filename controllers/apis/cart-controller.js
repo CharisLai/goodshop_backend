@@ -31,13 +31,17 @@ const cartController = {
     addCart: async (req, res) => {
         try {
             // cart
+            if (!req.user || !req.user.id) {
+                return res.status(403).json({ error: 'User not authenticated' })
+            }
             const userId = req.user.id
-            console.log(userId)
-            const [cart] = await Cart.findOrCreate({ where: { id: req.session.cartId || 0 } })
+            const [cart] = await Cart.findOrCreate({
+                where: { id: req.session.cartId || 0 },
+                defaults: { user_id: userId }
+            })
             const [product, created] = await CartItem.findOrCreate({
                 where: {
                     CartId: cart.id,
-                    user_id: userId,
                     ProductId: req.body.productId
                 },
                 defaults: {
@@ -63,7 +67,6 @@ const cartController = {
             const product = await CartItem.findByPk(req.params.productId)
             // find product inventory
             const addProduct = await Products.findByPk(product.ProductId)
-            console.log(addProduct)
             await product.update({
                 quantity: product.quantity + 1
             })

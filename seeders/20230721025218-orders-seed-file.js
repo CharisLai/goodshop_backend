@@ -4,7 +4,7 @@ const { User } = require('../models')
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const users = await User.findAll({ where: { role: 'buyer' } })
+    const users = await User.findAll({ where: { is_admin: false, is_seller: false } })
     await queryInterface.bulkInsert('Orders',
       Array.from({ length: 2 }).map((item, index) => ({
         user_id: users[Math.floor(Math.random() * users.length)].id,

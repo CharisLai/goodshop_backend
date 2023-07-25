@@ -13,7 +13,6 @@ const cartController = {
                         }
                     ]
                 })
-                console.log(cart)
                 if (!cart) {
                     return res.render('cart', { cart: { cartProducts: [] }, totalPrice: 0 })
                 }
@@ -31,9 +30,10 @@ const cartController = {
     // 將項目加入購物車
     addCart: async (req, res) => {
         try {
-            // cart
-            const userId = req.carts.id
-            console.log('here:', req.body)
+            if (!req.user || !req.user.id) {
+                return res.status(403).json({ error: 'User not authenticated' })
+            }
+            const userId = req.user.id
             const [cart] = await Cart.findOrCreate({
                 where: { id: req.session.cartId || 0 },
                 defaults: { user_id: userId }
@@ -47,7 +47,6 @@ const cartController = {
                     quantity: 1
                 }
             })
-            console.log('cartId:', cart)
             if (!created) {
                 product.quantity += 1
             }
@@ -67,7 +66,7 @@ const cartController = {
             const product = await CartItem.findByPk(req.params.productId)
             // find product inventory
             const addProduct = await Products.findByPk(product.ProductId)
-            console.log(addProduct)
+
             await product.update({
                 quantity: product.quantity + 1
             })
