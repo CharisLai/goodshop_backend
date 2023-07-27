@@ -1,8 +1,6 @@
 {
     "version": 2,
     "builds": [
-      { "src": "npm run migrate", "use": "@vercel/node" },
-      { "src": "npm run seed", "use": "@vercel/node" },
       { "src": "app.js", "use": "@vercel/node" }
     ],
     "routes": [{ "src": "(.*)", "dest": "app.js" }]
