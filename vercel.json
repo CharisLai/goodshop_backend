@@ -1,0 +1,36 @@
+{
+    "version": 2,
+    "builds": 
+    [
+        {
+        "src": "node_modules/.bin/sequelize db:migrate",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "node_modules/.bin/sequelize db:seed:all",
+        "use": "@vercel/node"
+      },
+        
+        { 
+        "src": "app.js", 
+        "use": "@vercel/node"
+    }
+],
+    "routes": 
+    [
+        {
+        "src": "/migrate",
+        "dest": "node_modules/.bin/sequelize db:migrate",
+        "methods": ["POST"]
+      },
+      {
+        "src": "/seed",
+        "dest": "node_modules/.bin/sequelize db:seed:all",
+        "methods": ["POST"]
+      },
+        {
+            "src": "/(.*)",
+            "dest": "app.js"
+        }
+    ]
+}

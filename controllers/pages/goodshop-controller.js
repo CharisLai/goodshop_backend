@@ -8,12 +8,15 @@ const goodshopController = {
     getProduct: (req, res, next) => {
         // 從product table中取得資料
         return Product.findByPk(req.params.id, {
-            raw: true
+            // 原生 JavaScript 物件
+            raw: true,
+            // 嵌套的形式返回
+            nest: true
         })
             // 若沒有資料發出警訊 將資料帶入product模板
             .then(product => {
                 if (!product) throw new Error("Product didn't exist!")
-                res.render('product', { product })
+                res.render('product', { product, inventroy })
             })
             .catch(err => next(err))
     }

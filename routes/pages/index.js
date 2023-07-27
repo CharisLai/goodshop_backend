@@ -40,8 +40,6 @@ router.get('/product/:id', authenticated, goodshopController.getProduct)
 // goodshop前台
 router.get('/goodshop', goodshopController.getGoodshop)
 
-
-
 router.use('/', (req, res) => res.redirect('/goodshop'))
 
 // error_msg

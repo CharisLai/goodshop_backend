@@ -22,17 +22,16 @@
                 </p>
                 <p class="card-text text-truncate">{{this.description}}</p>
                 <h5 class="text-success font-weight-bold">NT$ {{this.price}}</span></h5>
-                <div class="d-flex justify-content-between align-items-center">
-                    <p style="color:deeppink;">還剩下{{this.inventory}}件</p>
-                    <div class="btn-group">
-                        <form action="/cart" method="POST">
-                            <input type="hidden" name="productId" value="{{this.id}}">
-                            <button type="submit" class="btn btn-outline-white"><i
-                                    class="fas fa-shopping-cart fa-1x"></i> 加入購物車</button>
-                        </form>
-                    </div>
+                <p style="color:deeppink;">還剩下{{this.inventory}}件</p>
+                <div class="btn-group">
+                    <form action="/cart" method="POST">
+                        <input type="hidden" name="productId" value="{{this.id}}">
+                        <button type="submit" class="btn btn-outline-white"><i class="fas fa-shopping-cart fa-1x"></i>
+                            加入購物車</button>
+                    </form>
                 </div>
             </div>
         </div>
-        {{/each}}
     </div>
+    {{/each}}
+</div>

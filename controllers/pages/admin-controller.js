@@ -74,6 +74,7 @@ const adminController = {
             return res.redirect('/admin/goodshop')
         })
     },
+    // 商品上下架
     onShelves: (req, res, next) => {
         return Product
     }

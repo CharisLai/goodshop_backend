@@ -19,7 +19,7 @@ const cartController = {
                 const totalPrice = cart.cartProducts.length > 0 ? cart.cartProducts.map(d => d.price * d.CartItem.quantity).reduce((a, b) => a + b) : 0
                 return res.render('cart', { cart: cart.toJSON(), totalPrice })
             } else {
-                // 沒有購物車，返回空的購物車內容
+                // 沒有購物，顯示空的購物車內容
                 return res.render('cart', { cart: { cartProducts: [] }, totalPrice: 0 })
             }
         } catch (e) {
