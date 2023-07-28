@@ -2,7 +2,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const passportJWT = require('passport-jwt')
 const bcrypt = require('bcryptjs')
-const { User, Product } = require('../models')
+const { User } = require('../models')
 
 const JWTStrategy = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
@@ -43,6 +43,7 @@ passport.serializeUser((user, cb) => {
 })
 passport.deserializeUser((id, cb) => {
     User.findByPk(id).then(user => {
+        console.log(user)
         user = user.toJSON()
         return cb(null, user)
     })

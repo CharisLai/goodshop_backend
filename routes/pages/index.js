@@ -12,7 +12,7 @@ const { authenticated, authenticatedAdmin } = require('../../middleware/auth') /
 const { generalErrorHandler } = require('../../middleware/error-handler')
 
 // admin後台
-router.use('/admin', authenticatedAdmin, admin)
+router.use('/admin', admin)
 
 // signUp註冊
 router.get('/signup', userController.signUpPage)

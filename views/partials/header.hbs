@@ -1,48 +1,62 @@
 <header>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-light px-4">
         <div class="container-fluid">
-            <a class="navbar-brand" style="color:black" href="/">Goodshop</a>
-
-            <!--Search -->
-            <form class="row row-cols-lg-auto g-5 align-items-center mb-1" id="search-form">
-                <div class="col-6">
-                    <label class="visually-hidden" for="search-input">
-                        Search Keyword
-                    </label>
-                    <input type="text" class="form-control" id="search-input" placeholder="Keyword..." />
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary" id="search-submit-button">
-                        Search
-                    </button>
-                </div>
-            </form>
-
-
-
-            {{#if user}}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                    <!--Shopping cart -->
-                    <a href="/cart"><button><i class="fas fa-shopping-cart fa-1x"></i></button></a>
-                    {{#if user.isAdmin}}
-                    <li class="nav-item">
-                        <a href="/admin/goodshop" class="nav-link">Admin 後台</a>
-                    </li>
-                    {{/if}}
-                    <li class="nav-item d-inline-flex align-items-center">
-                        <span class="text-black nav-link">Hi, {{ user.email }}</span>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/logout"><button class="btn btn-outline-success my-sm-0 my-2">Logout</button></a>
-                    </li>
-                </ul>
+            <div class="col-2">
+                <a class="navbar-brand" style="color:black" href="/">Goodshop</a>
             </div>
-            {{/if}}
+
+            <div class="col-2">
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <a class="nav-link" href="/admin/goodshop"><button type="button" class="btn btn-outline-warning">
+                            Admin 後台
+                        </button></a>
+                </div>
+            </div>
+
+
+
+            <div class="col-4">
+                <!--Search -->
+                <form class="row row-cols-lg-auto g-5 mb-1 d-flex justify-content-center align-items-center "
+                    id="search-form">
+                    <div class="input-group mt-5">
+                        <input type="text" class="form-control" id="search-input" placeholder="Keyword..."
+                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-4">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                        {{#if user}}
+
+                        <li class="nav-item d-inline-flex align-items-center">
+                            <span class="text-black nav-link">Hi, {{ user.email }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/logout"><button class="btn btn-outline-success my-sm-0 my-2">Logout</button></a>
+                        </li>
+
+                        {{else}}
+                        <li class="nav-item">
+                            <a href="/login"><button class="btn btn-outline-primary my-sm-0 my-2">Login</button></a>
+                        </li>
+
+                        {{/if}}
+                        <!--Shopping cart -->
+                        <a href="/cart"><i class="bi bi-cart"></i>
+                            <button class="btn btn-outline-white"><i
+                                    class="fas fa-shopping-cart fa-1x"></i></button></a>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
 </header>

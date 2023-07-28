@@ -4,6 +4,8 @@ const router = express.Router()
 const adminController = require('../../../controllers/pages/admin-controller')
 const upload = require('../../../middleware/multer')
 
+// 瀏覽admin後台列表
+router.get('/goodshop', adminController.getGoodshop)
 // 新增商品GET
 router.get('/product/create', adminController.createProduct)
 // 編輯特定商品GET
@@ -16,9 +18,7 @@ router.put('/product/:id', upload.single('image'), adminController.putProduct)
 router.delete('/product/:id', adminController.deleteProduct)
 // 新增商品POST
 router.post('/product', upload.single('image'), adminController.postProduct)
-// 瀏覽admin後台列表
-router.get('/goodshop', adminController.getGoodshop)
 
-router.use('', (req, res) => res.redirect('/admin/goodshop'))
+router.use('', (req, res) => res.redirect('/goodshop'))
 
 module.exports = router

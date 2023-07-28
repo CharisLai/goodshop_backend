@@ -1,11 +1,11 @@
 <!--filter -->
-<select style="display: flex; justify-content: flex-end; width: 40%;" class=" form-select" id="filter" name="filter"
-    aria-label="filter">
-    <option selected>All</option>
-    <option value="price-desc" {{#ifCond sort 'price-desc' }} selected{{/ifCond}}>Price: high > low</option>
-    <option value="price-asc" {{#ifCond sort 'price-asc' }} selected{{/ifCond}}>Price: low > high </option>
-</select>
-
+<div class="d-flex justify-content-end">
+    <select style="display: flex; width: 10%;" class=" form-select" id="filter" name="filter" aria-label="filter">
+        <option selected>All</option>
+        <option value="price-desc" {{#ifCond sort 'price-desc' }} selected{{/ifCond}}>Price: high > low</option>
+        <option value="price-asc" {{#ifCond sort 'price-asc' }} selected{{/ifCond}}>Price: low > high </option>
+    </select>
+</div>
 <div class="row mt-3">
     {{#each product}}
     <div class="col-md-4">
@@ -22,7 +22,7 @@
                 </p>
                 <p class="card-text text-truncate">{{this.description}}</p>
                 <h5 class="text-success font-weight-bold">NT$ {{this.price}}</span></h5>
-                <p style="color:deeppink;">還剩下{{this.inventory}}件</p>
+                <p style="color:deeppink;">還剩下 {{this.inventory}} 件</p>
                 <div class="btn-group">
                     <form action="/cart" method="POST">
                         <input type="hidden" name="productId" value="{{this.id}}">

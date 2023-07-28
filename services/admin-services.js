@@ -1,37 +1,54 @@
 const { imgurFileHandler } = require('../helpers/file-helpers')
-const { Product } = require('../models')
+const { Products } = require('../models')
 
+// imgur
+const imgur = require('imgur')
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+imgur.setClientId(IMGUR_CLIENT_ID)
+const uploadImg = path => {
+    return new Promise((resolve, reject) => {
+        imgur.upload(path, (err, img) => {
+            if (err) {
+                return reject(err)
+            }
+            return resolve(img)
+        })
+    })
+}
 const adminServices = {
     // 瀏覽後台商品列表
     getGoodshop: (req, cb) => {
-        Product.findAll({
-            raw: true
+        Products.findAll({
+            raw: true,
+            nest: true
         })
-            .then(product => cb(null, { product }))
+            .then(product =>
+                cb(null, { product }))
+
             .catch(err => cb(err))
     },
-    // // 新增商品
-    // createproduct: (req, cb) => {
-    //     return cb
-    // },
-    postProduct: (req, cb) => {
-        const { name, price, quantity, description } = req.body
-        if (!name) throw new Error('Product name is required!')
-        const { file } = req
-        imgurFileHandler(file)
-            .then(filePath => Product.create({
-                name,
-                price,
-                quantity,
-                description,
-                image: filePath || null
-            }))
-            .then(newProduct => cb(null, { product: newProduct }))
-            .catch(err => cb(err))
+    postProduct: async (req, cb) => {
+        try {
+            const { name, price, quantity, inventory, description } = req.body
+            if (req.file) {
+                imgurFileHandler(IMGUR_CLIENT_ID)
+                // 處理圖片上傳到 Imgur
+                const img = await uploadImg(req.file.path)
+                // 創建新的商品
+                const newProduct = await Products.create({ name, description, quantity, price, inventory, image: img.data.link || null })
+                cb(null, { product: newProduct })
+            } else {
+                await Products.create({ name, description, quantity, price, inventory })
+                cb(null, { message: 'Product created successfully' })
+            }
+        } catch (error) {
+            console.log(error)
+            return cb(error)
+        }
     },
     // 瀏覽特定商品
     getProduct: (req, cb) => {
-        return Product.findByPk(req.params.id, {
+        return Products.findByPk(req.params.id, {
             raw: true
         })
             .then(product => {
@@ -42,7 +59,7 @@ const adminServices = {
     },
     // 編輯特定商品GET
     editProduct: (req, cb) => {
-        return Product.findByPk(req.params.id, {
+        return Products.findByPk(req.params.id, {
             raw: true
         })
             .then(product => {
@@ -55,9 +72,9 @@ const adminServices = {
     putProduct: (req, cb) => {
         const { name, price, quantity, description } = req.body
         if (!name) throw new Error('Product name is required!')
-        const { file } = req
+
         Promise.all([
-            Product.findByPk(req.params.id)
+            Products.findByPk(req.params.id)
         ])
             .then(([product, filePath]) => {
                 if (!product) throw new Error("Product didn't exist!")
@@ -66,7 +83,7 @@ const adminServices = {
                     price,
                     quantity,
                     description,
-                    image: filePath || Product.image
+                    image: filePath || Products.image
                 })
             })
             .then(() => {
@@ -77,7 +94,7 @@ const adminServices = {
     },
     // 刪除特定商品
     deleteProduct: (req, cb) => {
-        Product.findByPk(req.params.id)
+        Products.findByPk(req.params.id)
             .then(product => {
                 if (!product) {
                     const err = new Error("Product didn't exist!")
@@ -90,7 +107,7 @@ const adminServices = {
             .catch(err => cb(err))
     },
     onShelves: (req, cb) => {
-        return Product
+        return Products
     }
 
 }

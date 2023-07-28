@@ -1,4 +1,4 @@
-const { Product } = require('../../models')
+const { Products } = require('../../models')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
 const adminServices = require('../../services/admin-services')
 
@@ -9,14 +9,14 @@ const adminController = {
     },
     // 新增商品
     createProduct: (req, res) => {
-        return res.render('admin/create-product')
+        return res.json({ status: 'success' })
     },
     postProduct: (req, res, next) => {
         adminServices.postProduct(req, (err, data) => err ? next(err) : res.json({ status: 'success', data }))
     },
     // 瀏覽特定商品
     getProduct: (req, res, next) => {
-        return Product.findByPk(req.params.id, {
+        return Products.findByPk(req.params.id, {
             raw: true
         })
             .then(product => {
@@ -27,7 +27,7 @@ const adminController = {
     },
     // 編輯特定商品GET
     editProduct: (req, res, next) => {
-        return Product.findByPk(req.params.id, {
+        return Products.findByPk(req.params.id, {
             raw: true
         })
             .then(product => {
@@ -42,7 +42,7 @@ const adminController = {
         if (!name) throw new Error('Product name is required!')
         const { file } = req
         Promise.all([
-            Product.findByPk(req.params.id),
+            Products.findByPk(req.params.id),
             imgurFileHandler(file)
         ])
             .then(([product, filePath]) => {
@@ -52,7 +52,7 @@ const adminController = {
                     price,
                     quantity,
                     description,
-                    image: filePath || Product.image
+                    image: filePath || Products.image
                 })
             })
             .then(() => {
