@@ -5,7 +5,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
+                <th scope="col">Inventory</th>
                 <th scope="col">Subtotal</th>
                 <th scope="col">#</th>
             </tr>
@@ -38,9 +38,8 @@
                 <td>NT${{this.price}} * {{this.CartItem.quantity}}</td>
                 <td>
                     <form action="/cartItem/{{this.CartItem.id}}?_method=DELETE" method="POST">
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa fa-trash"></i> Delete
-                        </button>
+                        <button type="submit" class="btn btn-link link-danger"
+                            onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
                     </form>
                 </td>
             </tr>

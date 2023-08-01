@@ -53,6 +53,7 @@ const cartController = {
             // save cartId in session
             req.session.cartId = cart.id
             await product.save()
+            req.flash('success_messages', 'Product was successfully to add in cart')
             return res.status(200).redirect('back')
         } catch (error) {
             console.log('error:', error)
@@ -65,7 +66,7 @@ const cartController = {
             // find cart
             const product = await CartItem.findByPk(req.params.productId)
             // find product inventory
-            const addProduct = await Products.findByPk(product.ProductId)
+            // const addProduct = await Products.findByPk(product.ProductId)
 
             await product.update({
                 quantity: product.quantity + 1
@@ -88,11 +89,13 @@ const cartController = {
             console.log(error)
         }
     },
+    // 刪除商品項目
     deleteCartItem: async (req, res, next) => {
         try {
             const product = await CartItem.findByPk(req.params.productId)
             if (!product) { throw new Error(`${this}`) }
             await product.destroy()
+            req.flash('success_messages', 'Product was successfully to DELETE')
             return res.status(200).redirect('back')
         } catch (error) {
             console.log(error)

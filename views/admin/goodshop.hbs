@@ -1,48 +1,54 @@
-<h1>GoodShop後台</h1>
-<a href='/admin/product/create'>
-    <button type="button" class="btn btn-primary">New Product</button>
-</a>
-<br />
-<br />
-<table class="table align-middle">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Inventory</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each product}}
-        <tr>
-            <th scope="row">{{this.id}}</th>
-            <td>{{this.name}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.inventory}}</td>
+<div class="container">
+    <div class="card-head">
+        <div class="text-center">
+            <h1>GoodShop後台</h1>
+        </div>
+    </div>
+    <div class="card mx-auto text-center mt-4" style="width:70%;">
 
-            <td>
-                <button type="button" class="btn btn-link">
-                    <a class="btn btn-link link-primary" href="/admin/product/{{this.id}}">
-                        Show
-                    </a>
-                </button>
-                <button type="button" class="btn btn-link">
-                    <a class="btn btn-link link-primary" href="/admin/product/{{this.id}}/edit">
-                        Edit
-                    </a>
-                </button>
-                <button type="button" class="btn btn-link">
-                    <a class="btn btn-link link-primary" href="/admin/product/{{this.id}}">
-                        onShelves
-                    </a>
-                </button>
-                <form action="/admin/product/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-                    <button type="submit" class="btn btn-link link-danger"
-                        onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
-                </form>
-            </td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+        <div class="text-end">
+            <a href='/admin/product/create'>
+                <button type=" button" class="btn btn-primary">New Product</button>
+            </a>
+        </div>
+
+        <table class="table align-middle">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Inventory</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each product}}
+                <tr>
+                    <th scope="row">{{this.id}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.inventory}}</td>
+
+                    <td>
+                        <button type="button" class="btn btn-link">
+                            <a class="btn btn-link link-primary" href="/admin/product/{{this.id}}">
+                                Show
+                            </a>
+                        </button>
+                        <button type="button" class="btn btn-link">
+                            <a class="btn btn-link link-primary" href="/admin/product/{{this.id}}/edit">
+                                Edit
+                            </a>
+                        </button>
+
+                        <form action="/admin/product/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-link link-danger"
+                                onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

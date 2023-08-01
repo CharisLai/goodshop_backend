@@ -1,3 +1,4 @@
+// for MVC
 const { ensureAuthenticated, getUser } = require('../helpers/auth-helpers')
 const authenticated = (req, res, next) => {
     // if (req.isAuthenticated)
@@ -16,7 +17,19 @@ const authenticatedAdmin = (req, res, next) => {
         res.redirect('/login')
     }
 }
+// seller
+const authenticatedSeller = (req, res, next) => {
+    // if (req.isAuthenticated)
+    if (ensureAuthenticated(req)) {
+        if (getUser(req).isSeller) return next()
+        res.redirect('/')
+    } else {
+        res.redirect('/login')
+    }
+}
+
 module.exports = {
     authenticated,
-    authenticatedAdmin
+    authenticatedAdmin,
+    authenticatedSeller
 }

@@ -5,15 +5,6 @@
                 <a class="navbar-brand" style="color:black" href="/">Goodshop</a>
             </div>
 
-            <div class="col-2">
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <a class="nav-link" href="/admin/goodshop"><button type="button" class="btn btn-outline-warning">
-                            Admin 後台
-                        </button></a>
-                </div>
-            </div>
-
-
 
             <div class="col-4">
                 <!--Search -->
@@ -28,7 +19,10 @@
                 </form>
 
             </div>
+
+
             <div class="col-4">
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -36,9 +30,8 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                         {{#if user}}
-
                         <li class="nav-item d-inline-flex align-items-center">
-                            <span class="text-black nav-link">Hi, {{ user.email }}</span>
+                            <span class="text-black nav-link">Hi, {{ user.name }}</span>
                         </li>
                         <li class="nav-item">
                             <a href="/logout"><button class="btn btn-outline-success my-sm-0 my-2">Logout</button></a>
@@ -50,10 +43,16 @@
                         </li>
 
                         {{/if}}
+                        {{#if user.isSeller}}
+                        <div class="col">
+                            <a href="/admin/goodshop" class="btn btn-outline-primary my-sm-0 my-2">Product Center</a>
+                        </div>
+                        {{else}}
                         <!--Shopping cart -->
                         <a href="/cart"><i class="bi bi-cart"></i>
                             <button class="btn btn-outline-white"><i
                                     class="fas fa-shopping-cart fa-1x"></i></button></a>
+                        {{/if}}
                     </ul>
                 </div>
             </div>

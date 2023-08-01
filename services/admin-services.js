@@ -29,16 +29,16 @@ const adminServices = {
     },
     postProduct: async (req, cb) => {
         try {
-            const { name, price, quantity, inventory, description } = req.body
+            const { name, price, inventory, description } = req.body
             if (req.file) {
                 imgurFileHandler(IMGUR_CLIENT_ID)
                 // 處理圖片上傳到 Imgur
                 const img = await uploadImg(req.file.path)
                 // 創建新的商品
-                const newProduct = await Products.create({ name, description, quantity, price, inventory, image: img.data.link || null })
+                const newProduct = await Products.create({ name, description, price, inventory, image: img.data.link || null })
                 cb(null, { product: newProduct })
             } else {
-                await Products.create({ name, description, quantity, price, inventory })
+                await Products.create({ name, description, price, inventory })
                 cb(null, { message: 'Product created successfully' })
             }
         } catch (error) {
@@ -70,18 +70,19 @@ const adminServices = {
     },
     // 編輯特定商品PUT
     putProduct: (req, cb) => {
-        const { name, price, quantity, description } = req.body
+        const { name, price, inventory, description } = req.body
         if (!name) throw new Error('Product name is required!')
 
         Promise.all([
             Products.findByPk(req.params.id)
         ])
             .then(([product, filePath]) => {
+                console.log(product)
                 if (!product) throw new Error("Product didn't exist!")
                 return product.update({
                     name,
                     price,
-                    quantity,
+                    inventory,
                     description,
                     image: filePath || Products.image
                 })

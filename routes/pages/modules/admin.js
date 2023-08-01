@@ -8,6 +8,7 @@ const upload = require('../../../middleware/multer')
 router.get('/goodshop', adminController.getGoodshop)
 // 新增商品GET
 router.get('/product/create', adminController.createProduct)
+
 // 編輯特定商品GET
 router.get('/product/:id/edit', adminController.editProduct)
 // 瀏覽特定商品

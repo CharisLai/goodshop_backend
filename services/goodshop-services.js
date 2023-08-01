@@ -14,7 +14,7 @@ const goodshopServices = {
     },
     getProduct: (req, cb) => {
         // 從product table中取得資料
-        return Product.findByPk(req.params.id, {
+        return Products.findByPk(req.params.id, {
             raw: true
         })
             // 若沒有資料發出警訊 將資料帶入product模板
