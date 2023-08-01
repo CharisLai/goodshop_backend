@@ -34,7 +34,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
 // logout登出
 router.get('/logout', userController.logOut)
 
-// 瀏覽商品
+// 瀏覽單一品項
 router.get('/product/:id', authenticated, goodshopController.getProduct)
 
 // goodshop前台

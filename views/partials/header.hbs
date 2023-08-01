@@ -8,12 +8,11 @@
 
             <div class="col-4">
                 <!--Search -->
-                <form class="row row-cols-lg-auto g-5 mb-1 d-flex justify-content-center align-items-center "
-                    id="search-form">
+                <form action="/goodshop" method="GET" class="row row-cols-lg-auto g-5 mb-1 mx-auto" id="search-form">
                     <div class="input-group mt-5">
-                        <input type="text" class="form-control" id="search-input" placeholder="Keyword..."
-                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                        <input type="text" class="form-control" id="search-keyword" name="keyword"
+                            placeholder="Keyword..." aria-label="Search-input" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i
                                 class="fas fa-search"></i></button>
                     </div>
                 </form>
@@ -31,27 +30,26 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                         {{#if user}}
                         <li class="nav-item d-inline-flex align-items-center">
-                            <span class="text-black nav-link">Hi, {{ user.name }}</span>
+                            <span class="text-black nav-link">Hi, {{ user.name }}&emsp;</span>
                         </li>
                         <li class="nav-item">
                             <a href="/logout"><button class="btn btn-outline-success my-sm-0 my-2">Logout</button></a>
                         </li>
-
+                        &emsp;&emsp;
                         {{else}}
                         <li class="nav-item">
-                            <a href="/login"><button class="btn btn-outline-primary my-sm-0 my-2">Login</button></a>
+                            <a href="/login" class="my-sm-0 my-2">Login / Signup</a>
                         </li>
-
+                        &emsp;&emsp;
                         {{/if}}
                         {{#if user.isSeller}}
-                        <div class="col">
+                        <div class="col ml-2">
                             <a href="/admin/goodshop" class="btn btn-outline-primary my-sm-0 my-2">Product Center</a>
                         </div>
                         {{else}}
                         <!--Shopping cart -->
-                        <a href="/cart"><i class="bi bi-cart"></i>
-                            <button class="btn btn-outline-white"><i
-                                    class="fas fa-shopping-cart fa-1x"></i></button></a>
+                        <a href="/cart" class="mt-2 mr-2">
+                            <i class="fas fa-shopping-cart fa-1x"></i></a>
                         {{/if}}
                     </ul>
                 </div>
