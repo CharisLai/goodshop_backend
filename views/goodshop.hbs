@@ -1,11 +1,26 @@
-<!--filter -->
+{{!-- <!--Search -->
+<form action="/goodshop" method="GET" class="row row-cols-lg-auto g-5 mb-1" id="search-form">
+    <div class="input-group mt-5">
+        <input type="text" class="form-control" id="search-keyword" name="keyword" placeholder="Keyword..."
+            aria-label="Search-input" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i
+                class="fas fa-search"></i></button>
+    </div>
+</form> --}}
+
+
+<!--sort -->
 <div class="d-flex justify-content-end">
-    <select style="display: flex; width: 10%;" class=" form-select" id="filter" name="filter" aria-label="filter">
-        <option selected>All</option>
-        <option value="price-desc" {{#ifCond sort 'price-desc' }} selected{{/ifCond}}>Price: high > low</option>
-        <option value="price-asc" {{#ifCond sort 'price-asc' }} selected{{/ifCond}}>Price: low > high </option>
-    </select>
+    <form action="/goodshop" method="POST">
+        <select style="display: flex; width: 20%;" class="form-select" id="sortSelect" name="sort" aria-label="sort"
+            onchange="this.form.submit()">
+            <option value="" selected>Sort by</option>
+            <option value="price-desc">Price High to Low</option>
+            <option value="price-asc">Price Low to High </option>
+        </select>
+    </form>
 </div>
+
 <div class="row mt-3">
     {{#each product}}
     <div class="col-md-4">

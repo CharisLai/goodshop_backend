@@ -4,8 +4,11 @@ const { Op } = require('sequelize')
 const goodshopServices = {
     getGoodshop: (req, cb) => {
         const keyword = req.query.keyword
+        const sort = req
         const product = []
-        console.log('keyword:', keyword)
+        // const a = document.getElementById('sortSelect').value
+        console.log('a:', sort)
+
         if (keyword) {
             product.where = {
                 [Op.or]: [
@@ -14,6 +17,14 @@ const goodshopServices = {
                 ]
             }
         }
+
+        // 根據排序方式進行產品資料排序
+        if (sort === 'price-desc') {
+            Products.sort((a, b) => b.price - a.price) // 金額從大到小
+        } else if (sort === 'price-asc') {
+            Products.sort((a, b) => a.price - b.price) // 金額從小到大
+        }
+
         return Products.findAll({
             raw: true,
             ...product

@@ -37,7 +37,7 @@ router.get('/logout', userController.logOut)
 // 瀏覽單一品項
 router.get('/product/:id', authenticated, goodshopController.getProduct)
 
-// goodshop前台
+// goodshop前台 搜尋功能
 router.get('/goodshop', goodshopController.getGoodshop)
 
 router.use('/', (req, res) => res.redirect('/goodshop'))

@@ -19,9 +19,6 @@ const goodshopController = {
         //         res.render('product', { product })
         //     })
         //     .catch(err => next(err))
-    },
-    searchProduct: (req, res, next) => {
-        goodshopServices.searchProduct(req, (err, data) => err ? next(err) : res.render('product', data))
     }
 }
 module.exports = goodshopController

@@ -77,7 +77,6 @@ const adminServices = {
             Products.findByPk(req.params.id)
         ])
             .then(([product, filePath]) => {
-                console.log(product)
                 if (!product) throw new Error("Product didn't exist!")
                 return product.update({
                     name,
